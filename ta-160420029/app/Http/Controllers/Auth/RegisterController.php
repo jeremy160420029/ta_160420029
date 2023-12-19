@@ -106,14 +106,14 @@ class RegisterController extends Controller
             session()->forget('email');
             session()->forget('verification_code');
 
-            return redirect()->route('login')->with('message', 'Verifikasi berhasil. Silakan login.');
+            return redirect()->route('login')->with('message', 'Verifikasi berhasil. Silahkan login.');
         } else {
             session()->forget('username');
             session()->forget('password');
             session()->forget('email');
             session()->forget('verification_code');
 
-            return redirect()->route('register')->with('message', 'Kode verifikasi tidak valid. Silakan daftar ulang.');
+            return redirect()->route('register')->with('message', 'Kode verifikasi tidak valid. Silahkan daftar ulang.');
         }
     }
 
