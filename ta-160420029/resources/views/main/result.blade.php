@@ -19,6 +19,8 @@
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Halaman Utama</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="{{ url('processes') }}">Halaman Pengecekan
                                 Sepatu</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="{{ route('preview', $articles->id) }}">Halaman
+                                Preview</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Halaman Hasil</li>
                     </ol>
                 </nav>
@@ -44,7 +46,7 @@
                             </div>
                             <br>
                             @can('is-user')
-                                <a href="{{ route('check', $articles->id) }}" class="btn btn-primary">Lakukan
+                                <a href="{{ route('preview', $articles->id) }}" class="btn btn-primary">Lakukan
                                     Pengecekan Lagi</a>
                             @elseif('is-admin')
                             @endcan

@@ -70,7 +70,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $a->name }}</h5>
                                     @can('is-user')
-                                        <a href="{{ route('check', $a->id) }}" class="btn btn-primary">Lakukan Pengecekan</a>
+                                        <a href="{{ route('preview', $a->id) }}" class="btn btn-primary">Lakukan Pengecekan</a>
                                     @else
                                         @can('is-admin')
                                         @else

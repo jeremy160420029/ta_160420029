@@ -62,6 +62,7 @@ Route::get('/search-process', [ProcessController::class, 'searchProcess'])->name
 
 //pengecekan
 Route::middleware(['can:is-user'])->group(function () {
+    Route::get('/preview/{id}', [PythonController::class, 'showStreamingPage'])->name('preview');
     Route::get('/check/{id}', [PythonController::class, 'runRemoteScript'])->name('check');
     Route::resource("histories", HistoryController::class);
     Route::get('/search-history', [HistoryController::class, 'searchHistory'])->name('search.history');

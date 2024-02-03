@@ -10,10 +10,44 @@ use phpseclib3\Net\SSH2 as NetSSH2;
 
 class PythonController extends Controller
 {
+    public function showStreamingPage($id)
+    {
+        // return view('main.preview');
+
+        // Raspberry Pi SSH credentials
+        $host = '192.168.184.65';
+        $port = 22;
+        $username = 'jeremy';
+        $password = 'jeremy';
+
+        try {
+            // Connect to Raspberry Pi via SSH
+            $ssh = new NetSSH2($host, $port);
+            if (!$ssh->login($username, $password)) {
+                throw new \Exception('SSH login failed');
+            }
+
+            // Run the Python script remotely
+            try{
+                $output3 = $ssh->exec("curl http://localhost:5000/stop");
+                $output4 = $ssh->exec("curl http://localhost:5000/start");
+            } catch (\Exception $e) {
+                echo "Gagal: " . $e->getMessage();
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+
+            $articles = Article::find($id);
+
+            return view('main.preview', compact("articles"));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function runRemoteScript($id)
     {
         // Raspberry Pi SSH credentials
-        $host = '192.168.162.65';
+        $host = '192.168.184.65';
         $port = 22;
         $username = 'jeremy';
         $password = 'jeremy';
@@ -48,7 +82,8 @@ class PythonController extends Controller
             }
 
             // Run the Python script remotely
-            $output = $ssh->exec("python3 $remoteScriptPath $users_id");
+            $output1 = $ssh->exec("pkill -f stream.py");
+            $output2 = $ssh->exec("python3 $remoteScriptPath $users_id");
 
             // Close the SSH connection
             $ssh->disconnect();

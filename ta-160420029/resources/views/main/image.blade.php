@@ -49,7 +49,7 @@
                 </div>
                 <div class="card-body text-center">
                     @can('is-user')
-                        <a href="{{ route('check', $article->id) }}" class="btn btn-primary">Lakukan Pengecekan</a>
+                        <a href="{{ route('preview', $article->id) }}" class="btn btn-primary">Lakukan Pengecekan</a>
                     @else
                         @can('is-admin')
                         @else
